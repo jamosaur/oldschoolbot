@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			permissionLevel: 10,
 			guarded: true,
 			usage: '<expression:str>',
-			usageDelim: null
+			usageDelim: null,
 		});
 	}
 
@@ -22,7 +22,7 @@ module.exports = class extends Command {
 			success ? 'COMMAND_EVAL_OUTPUT' : 'COMMAND_EVAL_ERROR',
 			time,
 			util.codeBlock('js', result),
-			footer
+			footer,
 		);
 
 		if ('silent' in message.flagArgs) return null;
@@ -33,7 +33,7 @@ module.exports = class extends Command {
 				return message.channel.sendFile(
 					Buffer.from(result),
 					'output.txt',
-					message.language.get('COMMAND_EVAL_SENDFILE', time, footer)
+					message.language.get('COMMAND_EVAL_SENDFILE', time, footer),
 				);
 			}
 			this.client.emit('log', result);
@@ -49,7 +49,7 @@ module.exports = class extends Command {
 		// eslint-disable-next-line no-unused-vars
 		const msg = message;
 		const { flagArgs: flags } = message;
-		code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+		code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, '\'');
 		const stopwatch = new Stopwatch();
 		let success, syncTime, asyncTime, result;
 		let thenable = false;
@@ -83,7 +83,7 @@ module.exports = class extends Command {
 		if (typeof result !== 'string') {
 			result = inspect(result, {
 				depth: flags.depth ? parseInt(flags.depth) || 0 : 0,
-				showHidden: Boolean(flags.showHidden)
+				showHidden: Boolean(flags.showHidden),
 			});
 		}
 
@@ -91,7 +91,7 @@ module.exports = class extends Command {
 			success,
 			type,
 			time: this.formatTime(syncTime, asyncTime),
-			result: util.clean(result)
+			result: util.clean(result),
 		};
 	}
 

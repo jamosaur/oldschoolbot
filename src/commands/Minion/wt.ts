@@ -3,12 +3,12 @@ import { CommandStore, KlasaMessage } from 'klasa';
 import { BotCommand } from '../../lib/BotCommand';
 import { Activity, Tasks, Time } from '../../lib/constants';
 import {
-	rand,
-	reduceNumByPercent,
+	addItemToBank,
+	bankHasItem,
 	calcWhatPercent,
 	formatDuration,
-	addItemToBank,
-	bankHasItem
+	rand,
+	reduceNumByPercent
 } from '../../lib/util';
 import { WintertodtActivityTaskOptions } from '../../lib/types/minions';
 import addSubTaskToActivityTask from '../../lib/util/addSubTaskToActivityTask';

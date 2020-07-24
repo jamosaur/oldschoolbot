@@ -6,7 +6,7 @@ module.exports = class extends Command {
 		super(...args, {
 			description: 'Returns a random message from someone in the channel.',
 			cooldown: 10,
-			requiredPermissions: ['READ_MESSAGE_HISTORY']
+			requiredPermissions: ['READ_MESSAGE_HISTORY'],
 		});
 	}
 
@@ -16,7 +16,7 @@ module.exports = class extends Command {
 		for (let i = 0; i < 3; i++) {
 			const fetchedMessages = await msg.channel.messages.fetch({
 				limit: 100,
-				before: messageBank.last().id
+				before: messageBank.last().id,
 			});
 			messageBank = messageBank.concat(fetchedMessages);
 		}
@@ -27,8 +27,8 @@ module.exports = class extends Command {
 			if (message.content.replace(/\W/g, '').replace(/[0-9]/g, '').length < 20) continue;
 
 			const embed = new MessageEmbed()
-				.setDescription(message.content)
-				.setAuthor(message.author.username, message.author.avatarURL());
+			.setDescription(message.content)
+			.setAuthor(message.author.username, message.author.avatarURL());
 			return msg.send({ embed });
 		}
 		return msg.sendLocale('NO_QUOTE');

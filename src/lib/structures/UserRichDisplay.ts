@@ -11,6 +11,8 @@ import {
 import { Time } from '../constants';
 
 export class UserRichDisplay extends RichDisplay {
+	public static readonly handlers: Map<string, ReactionHandler> = new Map();
+
 	public async start(
 		message: KlasaMessage,
 		target: string = message.author.id,
@@ -36,6 +38,4 @@ export class UserRichDisplay extends RichDisplay {
 
 		return handler;
 	}
-
-	public static readonly handlers: Map<string, ReactionHandler> = new Map();
 }

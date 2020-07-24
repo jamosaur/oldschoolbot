@@ -5,7 +5,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			description: 'View the virtual pets you have.',
-			cooldown: 3
+			cooldown: 3,
 		});
 	}
 

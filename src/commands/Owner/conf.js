@@ -1,6 +1,6 @@
 const {
 	Command,
-	util: { toTitleCase, codeBlock }
+	util: { toTitleCase, codeBlock },
 } = require('klasa');
 
 module.exports = class extends Command {
@@ -12,7 +12,7 @@ module.exports = class extends Command {
 			subcommands: true,
 			description: language => language.get('COMMAND_CONF_SERVER_DESCRIPTION'),
 			usage: '<set|show|remove|reset> (key:key) (value:value) [...]',
-			usageDelim: ' '
+			usageDelim: ' ',
 		});
 
 		this.createCustomResolver('key', (arg, possible, message, [action]) => {
@@ -28,23 +28,23 @@ module.exports = class extends Command {
 		const path = this.client.gateways.guilds.getPath(key, {
 			avoidUnconfigurable: true,
 			errors: false,
-			piece: null
+			piece: null,
 		});
 		if (!path) return message.sendLocale('COMMAND_CONF_GET_NOEXT', [key]);
 		if (path.piece.type === 'Folder') {
 			return message.sendLocale('COMMAND_CONF_SERVER', [
 				key
-					? `: ${key
-							.split('.')
-							.map(toTitleCase)
-							.join('/')}`
-					: '',
-				codeBlock('asciidoc', message.guild.settings.list(message, path.piece))
+				? `: ${key
+				.split('.')
+				.map(toTitleCase)
+				.join('/')}`
+				: '',
+				codeBlock('asciidoc', message.guild.settings.list(message, path.piece)),
 			]);
 		}
 		return message.sendLocale('COMMAND_CONF_GET', [
 			path.piece.path,
-			message.guild.settings.resolveString(message, path.piece)
+			message.guild.settings.resolveString(message, path.piece),
 		]);
 	}
 
@@ -53,13 +53,13 @@ module.exports = class extends Command {
 			key,
 			valueToSet.join(' '),
 			message.guild,
-			{ avoidUnconfigurable: true, action: 'add' }
+			{ avoidUnconfigurable: true, action: 'add' },
 		);
 		return (
 			this.check(message, key, status) ||
 			message.sendLocale('COMMAND_CONF_UPDATED', [
 				key,
-				message.guild.settings.resolveString(message, status.updated[0].piece)
+				message.guild.settings.resolveString(message, status.updated[0].piece),
 			])
 		);
 	}
@@ -69,13 +69,13 @@ module.exports = class extends Command {
 			key,
 			valueToRemove.join(' '),
 			message.guild,
-			{ avoidUnconfigurable: true, action: 'remove' }
+			{ avoidUnconfigurable: true, action: 'remove' },
 		);
 		return (
 			this.check(message, key, status) ||
 			message.sendLocale('COMMAND_CONF_UPDATED', [
 				key,
-				message.guild.settings.resolveString(message, status.updated[0].piece)
+				message.guild.settings.resolveString(message, status.updated[0].piece),
 			])
 		);
 	}
@@ -86,7 +86,7 @@ module.exports = class extends Command {
 			this.check(message, key, status) ||
 			message.sendLocale('COMMAND_CONF_RESET', [
 				key,
-				message.guild.settings.resolveString(message, status.updated[0].piece)
+				message.guild.settings.resolveString(message, status.updated[0].piece),
 			])
 		);
 	}

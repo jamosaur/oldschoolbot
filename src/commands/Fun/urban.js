@@ -8,13 +8,13 @@ module.exports = class extends Command {
 			description:
 				'Searches the Urban Dictionary library for a definition to the search term.',
 			usage: '<search:str> [resultNum:int]',
-			usageDelim: ', '
+			usageDelim: ', ',
 		});
 	}
 
 	async run(msg, [search, index = 1]) {
 		const { list } = await fetch(
-			`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(search)}`
+			`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(search)}`,
 		).then(res => res.json());
 
 		this.getDefinition(search, list, --index, msg);
@@ -26,8 +26,8 @@ module.exports = class extends Command {
 
 		const wdef =
 			result.definition.length > 1000
-				? `${this.splitText(result.definition, 1000)}...`
-				: result.definition;
+			? `${this.splitText(result.definition, 1000)}...`
+			: result.definition;
 
 		return msg.sendLocale('URBAN_RESULT', [search, result, wdef]);
 	}
